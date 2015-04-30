@@ -9,6 +9,7 @@ package frontend;
 import Controller.ClsPersona;
 import Modell.IdPersona;
 import Utilitarios.RecursosMetodos;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -44,6 +45,21 @@ public class FormPersona extends javax.swing.JFrame {
         modelo.addColumn("Dirección");
         modelo.addColumn("Telefono");
         TablePersona.setModel(modelo);
+    }
+    public void limpiar_text()
+    {
+     this.TxtAppNombres.setText("");
+     this.TxtDireccion.setText("");
+     this.TxtDni.setText("");
+     this.TxtTelefono.setText("");
+     enabled_text(true);
+    }
+    public void enabled_text(boolean estado)
+    {
+     this.TxtAppNombres.enable(estado);
+     this.TxtDireccion.enable(estado);
+     this.TxtDni.enable(estado);
+     this.TxtTelefono.enable(estado);
     }
     public void cargar_datos()
     {
@@ -90,11 +106,18 @@ public class FormPersona extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos personales"));
+        PanelDatos.setEnabled(false);
         PanelDatos.setLayout(null);
 
         jLabel1.setText("Apellidos y nombres:");
         PanelDatos.add(jLabel1);
         jLabel1.setBounds(10, 20, 100, 20);
+
+        TxtAppNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtAppNombresKeyPressed(evt);
+            }
+        });
         PanelDatos.add(TxtAppNombres);
         TxtAppNombres.setBounds(120, 20, 190, 20);
 
@@ -102,6 +125,12 @@ public class FormPersona extends javax.swing.JFrame {
         jLabel2.setText("DNI:");
         PanelDatos.add(jLabel2);
         jLabel2.setBounds(10, 50, 100, 20);
+
+        TxtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtDniKeyPressed(evt);
+            }
+        });
         PanelDatos.add(TxtDni);
         TxtDni.setBounds(120, 50, 100, 20);
 
@@ -109,6 +138,12 @@ public class FormPersona extends javax.swing.JFrame {
         jLabel3.setText("Telefono:");
         PanelDatos.add(jLabel3);
         jLabel3.setBounds(10, 80, 100, 14);
+
+        TxtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtTelefonoKeyPressed(evt);
+            }
+        });
         PanelDatos.add(TxtTelefono);
         TxtTelefono.setBounds(120, 80, 100, 20);
 
@@ -116,6 +151,12 @@ public class FormPersona extends javax.swing.JFrame {
         jLabel4.setText("Dirección:");
         PanelDatos.add(jLabel4);
         jLabel4.setBounds(10, 110, 100, 14);
+
+        TxtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtDireccionKeyPressed(evt);
+            }
+        });
         PanelDatos.add(TxtDireccion);
         TxtDireccion.setBounds(120, 110, 190, 20);
 
@@ -174,7 +215,7 @@ public class FormPersona extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TablePersona);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 220, 440, 100);
+        jScrollPane1.setBounds(0, 220, 430, 300);
 
         PanelBtnSecond.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         PanelBtnSecond.setLayout(null);
@@ -197,17 +238,46 @@ public class FormPersona extends javax.swing.JFrame {
       // TxtAppNombres.setText(clsp.contador()+""); 
         llenarTabla();
         cargar_datos();
-        //clsp.rr();
+        limpiar_text();
+        enabled_text(false);
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        // TODO add your handling code here:
+        limpiar_text();
+        enabled_text(false);
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
-        //clsp.cont=-1;
-        //TxtAppNombres.setText(clsp.contador()+"");
+        limpiar_text();
+        enabled_text(true);
     }//GEN-LAST:event_BtnNuevoActionPerformed
+
+    private void TxtAppNombresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtAppNombresKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        this.TxtDni.requestFocus();
+        }
+    }//GEN-LAST:event_TxtAppNombresKeyPressed
+
+    private void TxtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDniKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        this.TxtTelefono.requestFocus();
+        }
+    }//GEN-LAST:event_TxtDniKeyPressed
+
+    private void TxtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtTelefonoKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        this.TxtDireccion.requestFocus();              
+        }
+    }//GEN-LAST:event_TxtTelefonoKeyPressed
+
+    private void TxtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDireccionKeyPressed
+       if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        this.TxtAppNombres.requestFocus();     
+        llenarTabla();
+        cargar_datos();
+        limpiar_text();
+       } 
+    }//GEN-LAST:event_TxtDireccionKeyPressed
 
     /**
      * @param args the command line arguments
