@@ -6,19 +6,58 @@
 
 package frontend;
 
+import Controller.ClsPersona;
+import Modell.IdPersona;
+import Utilitarios.RecursosMetodos;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author JOEL
  */
 public class FormPersona extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormMain
-     */
+    ClsPersona clsp;
+    IdPersona idp = new IdPersona();
+    RecursosMetodos rm = new RecursosMetodos();
+    DefaultTableModel modelo;
+    ArrayList <IdPersona>tbPersona;
+    
     public FormPersona() {
         initComponents();
+        cargar_cab();
     }
-
+    public void llenarTabla()
+    {
+        idp.setId(rm.contador());
+        idp.setNombre_ap(TxtAppNombres.getText());
+        idp.setDni(TxtDni.getText());
+        idp.setTelefono(TxtTelefono.getText());
+        idp.setDireccion(TxtDireccion.getText());        
+        clsp = new ClsPersona(idp);
+    }
+    public void cargar_cab(){
+        modelo = new DefaultTableModel();
+        modelo.addColumn("id_persona");
+        modelo.addColumn("Nombres y apellidos");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Telefono");
+        TablePersona.setModel(modelo);
+    }
+    public void cargar_datos()
+    {
+        tbPersona = clsp.reportePersona();
+        for(IdPersona idp1 : tbPersona){
+            modelo.addRow(new Object[]{idp1.getId(),
+                                        idp1.getNombre_ap(),
+                                        idp1.getDni(),
+                                        idp1.getDireccion(),
+                                        idp1.getTelefono()
+                });
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +86,7 @@ public class FormPersona extends javax.swing.JFrame {
         BtnEdit = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos personales"));
@@ -92,6 +131,11 @@ public class FormPersona extends javax.swing.JFrame {
         BtnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BtnNuevo.setIconTextGap(6);
         BtnNuevo.setVerifyInputWhenFocusTarget(false);
+        BtnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNuevoActionPerformed(evt);
+            }
+        });
         PanelBtnMain.add(BtnNuevo);
         BtnNuevo.setBounds(10, 10, 90, 20);
 
@@ -150,12 +194,20 @@ public class FormPersona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-        // TODO add your handling code here:
+      // TxtAppNombres.setText(clsp.contador()+""); 
+        llenarTabla();
+        cargar_datos();
+        //clsp.rr();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
+        //clsp.cont=-1;
+        //TxtAppNombres.setText(clsp.contador()+"");
+    }//GEN-LAST:event_BtnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
