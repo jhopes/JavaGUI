@@ -7,10 +7,13 @@
 package frontend;
 
 import Controller.ClsPersona;
+import Controller.ClsTipoPersona;
 import Modell.IdPersona;
+import Modell.IdTipoPersona;
 import Utilitarios.RecursosMetodos;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -19,14 +22,22 @@ import javax.swing.table.DefaultTableModel;
 public class FormPersona extends javax.swing.JFrame {
 
     ClsPersona clsp;
+    ClsTipoPersona clstp;
     IdPersona idp = new IdPersona();
     RecursosMetodos rm = new RecursosMetodos();
     DefaultTableModel modelo;
+    ComboBoxModel<IdTipoPersona> modelotp;
     ArrayList <IdPersona>tbPersona;
+    ArrayList <IdTipoPersona>tbtPersona;
+    //ComboBoxDataModel CmboTipoPersona;
     
     public FormPersona() {
         initComponents();
         cargar_cab();
+        //CmbTipoPersona.setModel(modelotp);
+        CmbTipoPersona.addItem("Arbitro");
+        CmbTipoPersona.addItem("Jugador");
+        CmbTipoPersona.addItem("Entrenador");
     }
     public void llenarTabla()
     {
@@ -74,6 +85,18 @@ public class FormPersona extends javax.swing.JFrame {
         }
         
     }
+    /*public void cargar_tipo_persona_home(){
+        //modelotp = new ComboBoxModel();
+        CmbTipoPersona.setModel(modelotp);
+    }*/
+    public void cargar_tipo_persona()
+    {
+        tbtPersona = clstp.reporteTipoPersona();
+        for(IdTipoPersona idtp1 : tbtPersona){
+            modelotp.setSelectedItem(idtp1.getNom_tip_per());
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,6 +115,8 @@ public class FormPersona extends javax.swing.JFrame {
         TxtTelefono = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         TxtDireccion = new javax.swing.JTextField();
+        CmbTipoPersona = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         PanelBtnMain = new javax.swing.JPanel();
         BtnNuevo = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
@@ -160,8 +185,16 @@ public class FormPersona extends javax.swing.JFrame {
         PanelDatos.add(TxtDireccion);
         TxtDireccion.setBounds(120, 110, 190, 20);
 
+        PanelDatos.add(CmbTipoPersona);
+        CmbTipoPersona.setBounds(120, 140, 190, 25);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Tipo de persona:");
+        PanelDatos.add(jLabel5);
+        jLabel5.setBounds(10, 140, 100, 25);
+
         getContentPane().add(PanelDatos);
-        PanelDatos.setBounds(0, 50, 440, 140);
+        PanelDatos.setBounds(0, 50, 440, 170);
 
         PanelBtnMain.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         PanelBtnMain.setLayout(null);
@@ -215,7 +248,7 @@ public class FormPersona extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TablePersona);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 220, 430, 300);
+        jScrollPane1.setBounds(0, 250, 430, 300);
 
         PanelBtnSecond.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         PanelBtnSecond.setLayout(null);
@@ -229,7 +262,7 @@ public class FormPersona extends javax.swing.JFrame {
         BtnEliminar.setBounds(90, 3, 73, 23);
 
         getContentPane().add(PanelBtnSecond);
-        PanelBtnSecond.setBounds(0, 190, 440, 30);
+        PanelBtnSecond.setBounds(0, 220, 440, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -320,6 +353,7 @@ public class FormPersona extends javax.swing.JFrame {
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JComboBox CmbTipoPersona;
     private javax.swing.JPanel PanelBtnMain;
     private javax.swing.JPanel PanelBtnSecond;
     private javax.swing.JPanel PanelDatos;
@@ -332,6 +366,7 @@ public class FormPersona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

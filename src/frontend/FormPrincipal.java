@@ -6,6 +6,8 @@
 
 package frontend;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author JOEL
@@ -45,6 +47,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Formulario Principal");
@@ -115,6 +118,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("Tipo Persona");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
@@ -136,6 +147,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         fp.setSize(440, 329);
         fp.setPreferredSize(this.getSize());
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FormTipoPersona ftp =  new FormTipoPersona();
+        ftp.setVisible(true);
+        ftp.setSize(440, 329);
+        ftp.setPreferredSize(this.getSize());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +201,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
